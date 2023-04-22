@@ -20,6 +20,8 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
         src={`https://image.tmdb.org/t/p/original${data?.poster_path}`}
         alt="Movie thumbnail"
         fill
+        placeholder="blur"
+        blurDataURL={`https://image.tmdb.org/t/p/original${data?.poster_path}`}
         sizes="(max-width: 768px) 100vw,
         (max-width: 1200px) 50vw,
         33vw"
