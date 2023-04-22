@@ -13,18 +13,17 @@ const Billboard = () => {
   }, [openModal, data?.id])
 
   return (
-    <div className="relative h-[56.25vw]">
+    <div className="relative lg:h-[56.25vw] h-[100vw] w-full">
       <video
         autoPlay
         muted
         loop
         poster={data?.thumbnailUrl}
         src={data?.videoUrl}
-        className="w-full  h-[56.25vw] object-cover brightness-[60%]"
-      >
-        {" "}
-      </video>
-      <div className="absolute top-[30%] md:top-[40%] ml-4 md:ml-16">
+        className="w-full  lg:h-[56.25vw] h-[100vw] object-cover brightness-[60%]"
+      />
+
+      <div className="absolute top-[60%]  md:top-[40%] ml-4 md:ml-16">
         <p
           className="text-white text-xl 
             md:text-5xl h-full w-[50%]

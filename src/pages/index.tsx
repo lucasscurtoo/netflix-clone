@@ -6,7 +6,13 @@ import { NextPageContext } from "next"
 import { getSession } from "next-auth/react"
 import useFavorites from "../../hooks/useFavorites"
 import useInfoModal from "../../hooks/useInfoModal"
-import useMovieList from "../../hooks/useMovieList"
+import React, { useState } from "react"
+import {
+  fetchNowPlayingMovies,
+  fetchPopularMovies,
+  fetchUpcomingMovies,
+} from "../../lib/fetchGetMovies"
+import useGetMovies from "../../hooks/useGetMovies"
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context)
@@ -19,16 +25,28 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     }
   }
+  const upcomingMovies = await fetchUpcomingMovies()
+  const popularMovies = await fetchPopularMovies()
+  const nowPlayingMovies = await fetchNowPlayingMovies()
 
   return {
-    props: {},
+    props: { upcomingMovies, popularMovies, nowPlayingMovies },
   }
 }
 
-export default function Home() {
-  const { data: movies = [] } = useMovieList()
+interface HomePageProps {
+  upcomingMovies: { id: number }[]
+  popularMovies: { id: number }[]
+  nowPlayingMovies: { id: number }[]
+}
+
+const Home: React.FC<HomePageProps> = ({
+  upcomingMovies,
+  popularMovies,
+  nowPlayingMovies,
+}) => {
   const { data: favorites = [] } = useFavorites()
-  const { isOpen, closeModal } = useInfoModal()
+  const { closeModal, isOpen } = useInfoModal()
 
   return (
     <>
@@ -36,9 +54,21 @@ export default function Home() {
       <Navbar />
       <Billboard />
       <div className="pb-40">
-        <MovieList data={movies} title="Trending Now" />
+        <MovieList
+          data={upcomingMovies}
+          title="Upcoming Movies"
+          description="Upcoming movies for theatres"
+        />
+        <MovieList data={popularMovies} title="Popular Movies" description="" />
+        <MovieList
+          data={nowPlayingMovies}
+          title="Now playing Movies"
+          description="Currently playing on theatres"
+        />
         <MovieList data={favorites} title="My List" />
       </div>
     </>
   )
 }
+
+export default Home

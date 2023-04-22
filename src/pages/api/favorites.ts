@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { without } from "lodash"
-import prismadb from "../../../lib/prismadb"
 import serverAuth from "../../../lib/serverAuth"
+import axios from "axios"
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,14 +10,15 @@ export default async function handler(
 
   try {
     const { currentUser } = await serverAuth(req, res)
+    console.log(currentUser)
 
-    const favoriteMovies = await prismadb.movie.findMany({
-      where: {
-        id: {
-          in: currentUser?.favoriteIds,
-        },
-      },
-    })
+    const favoriteMovies = []
+
+    for (const movieId of currentUser.favoriteIds) {
+      const movieUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.NEXT_PUBLIC_IMDB_API_KEY}`
+      const response = await axios.get(movieUrl)
+      favoriteMovies.push(response.data)
+    }
 
     return res.status(200).json(favoriteMovies)
   } catch (error) {

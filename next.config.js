@@ -7,6 +7,7 @@ const nextConfig = {
       "uhdtv.io",
       "mango.blender.org",
       "download.blender.org",
+      "image.tmdb.org",
     ],
   },
 }

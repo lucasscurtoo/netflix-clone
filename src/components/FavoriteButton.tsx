@@ -20,8 +20,9 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
 
   const toggleFavorites = useCallback(async () => {
     let response
-    console.log(movieId)
+
     if (isFavorite) {
+      console.log(movieId)
       response = await axios.delete("/api/favorite", {
         data: { movieId: movieId },
       })
@@ -42,7 +43,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
   return (
     <div
       onClick={toggleFavorites}
-      className="cursor-pointer group/item w-6 h-6 lg:w-10 lg:h-10
+      className="cursor-pointer group/item w-8 h-8 lg:w-10 lg:h-10
   border-white border-2 rounded-full flex justify-center items-center 
   transition hover:border-neutral-300"
     >
