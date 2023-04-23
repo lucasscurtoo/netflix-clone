@@ -52,25 +52,19 @@ const Home: React.FC<HomePageProps> = ({
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar />
       <Billboard />
-      <div className="relative">
-        <div className="pb-40">
-          <MovieList
-            data={upcomingMovies}
-            title="Upcoming Movies"
-            description="Upcoming movies for theatres"
-          />
-          <MovieList
-            data={popularMovies}
-            title="Popular Movies"
-            description=""
-          />
-          <MovieList
-            data={nowPlayingMovies}
-            title="Now playing Movies"
-            description="Currently playing on theatres"
-          />
-          <MovieList data={favorites} title="My List" />
-        </div>
+      <div className="lg:pb-40">
+        <MovieList
+          data={upcomingMovies}
+          title="Upcoming Movies"
+          description="Upcoming movies for theatres"
+        />
+        <MovieList data={popularMovies} title="Popular Movies" description="" />
+        <MovieList
+          data={nowPlayingMovies}
+          title="Now playing Movies"
+          description="Currently playing on theatres"
+        />
+        <MovieList data={favorites} title="My List" />
       </div>
     </>
   )

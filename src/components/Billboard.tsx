@@ -47,7 +47,8 @@ const Billboard = () => {
         width="100%"
         height={isMobileState ? "100vw" : "56.25vw"}
         controls={false}
-        className="absolute bottom-24"
+        className="absolute bottom-16"
+        loop={true}
         config={{
           youtube: {
             playerVars: {
@@ -58,7 +59,7 @@ const Billboard = () => {
         }}
       />
 
-      <div className="absolute top-[20%]   md:top-[40%] ml-4 md:ml-16">
+      <div className="absolute top-[40%] ml-4 md:ml-16">
         <p
           className="text-white text-xl 
             md:text-5xl h-full w-[50%]
