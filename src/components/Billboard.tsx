@@ -1,4 +1,4 @@
-import React, { useCallback } from "react"
+import React, { useCallback, useRef } from "react"
 import useBillboard from "../../hooks/useBillboard"
 import { AiOutlineInfoCircle } from "react-icons/ai"
 import PlayButton from "./PlayButton"
@@ -7,9 +7,22 @@ import useGetMovieVideo from "../../hooks/useGetMovieVideo"
 import dynamic from "next/dynamic"
 import { useIsMobile } from "../../hooks/useIsMobile"
 
-const ReactPlayer = dynamic(() => import("react-player/youtube"), {
+const ReactPlayer = dynamic(() => import("react-player/lazy"), {
   ssr: false,
 })
+
+interface Video {
+  id: string
+  iso_3166_1: string
+  iso_639_1: string
+  key: string
+  name: string
+  official: boolean
+  published_at: string
+  site: string
+  size: number
+  type: string
+}
 
 const Billboard = () => {
   const { data } = useBillboard()
@@ -21,29 +34,31 @@ const Billboard = () => {
     openModal(data?.id)
   }, [openModal, data?.id])
 
+  const trailerVideo = videoData?.results.find(
+    (video: Video) => video.type === "Trailer"
+  )
+
   return (
     <div className="relative lg:h-[56.25vw] h-[100vw] w-full">
-      {/* <video
-        autoPlay
-        muted
-        loop
-        poster={data?.backdrop_path}
-        src={`https://www.youtube.com/watch?v=X6rNGDAiFjQ`}
-        className="w-full  lg:h-[56.25vw] h-[100vw] object-cover brightness-[60%]"
-      /> */}
-
       <ReactPlayer
-        url="https://www.youtube.com/embed/X6rNGDAiFjQ"
+        url={`https://www.youtube.com/watch?v=${trailerVideo?.key}`}
         playing={true}
         muted={true}
         width="100%"
         height={isMobileState ? "100vw" : "56.25vw"}
         controls={false}
+        className="absolute bottom-24"
         config={{
-          embedOptions: { showinfo: 0 },
+          youtube: {
+            playerVars: {
+              controls: 0,
+              modestbranding: 0,
+            },
+          },
         }}
       />
-      <div className="absolute top-[60%]  md:top-[40%] ml-4 md:ml-16">
+
+      <div className="absolute top-[20%]   md:top-[40%] ml-4 md:ml-16">
         <p
           className="text-white text-xl 
             md:text-5xl h-full w-[50%]

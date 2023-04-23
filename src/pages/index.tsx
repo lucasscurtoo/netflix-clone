@@ -6,7 +6,7 @@ import { NextPageContext } from "next"
 import { getSession } from "next-auth/react"
 import useFavorites from "../../hooks/useFavorites"
 import useInfoModal from "../../hooks/useInfoModal"
-import React, { useState } from "react"
+import React from "react"
 import {
   fetchNowPlayingMovies,
   fetchPopularMovies,
@@ -16,14 +16,14 @@ import {
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context)
 
-  // if (!session) {
-  //   return {
-  //     redirect: {
-  //       destination: "/auth",
-  //       permanent: false,
-  //     },
-  //   }
-  // }
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth",
+        permanent: false,
+      },
+    }
+  }
   const upcomingMovies = await fetchUpcomingMovies()
   const popularMovies = await fetchPopularMovies()
   const nowPlayingMovies = await fetchNowPlayingMovies()
@@ -52,19 +52,25 @@ const Home: React.FC<HomePageProps> = ({
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar />
       <Billboard />
-      <div className="pb-40">
-        <MovieList
-          data={upcomingMovies}
-          title="Upcoming Movies"
-          description="Upcoming movies for theatres"
-        />
-        <MovieList data={popularMovies} title="Popular Movies" description="" />
-        <MovieList
-          data={nowPlayingMovies}
-          title="Now playing Movies"
-          description="Currently playing on theatres"
-        />
-        <MovieList data={favorites} title="My List" />
+      <div className="relative">
+        <div className="pb-40">
+          <MovieList
+            data={upcomingMovies}
+            title="Upcoming Movies"
+            description="Upcoming movies for theatres"
+          />
+          <MovieList
+            data={popularMovies}
+            title="Popular Movies"
+            description=""
+          />
+          <MovieList
+            data={nowPlayingMovies}
+            title="Now playing Movies"
+            description="Currently playing on theatres"
+          />
+          <MovieList data={favorites} title="My List" />
+        </div>
       </div>
     </>
   )
