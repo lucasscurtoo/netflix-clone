@@ -12,19 +12,18 @@ import {
   fetchPopularMovies,
   fetchUpcomingMovies,
 } from "../../lib/fetchGetMovies"
-import useGetMovies from "../../hooks/useGetMovies"
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context)
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/auth",
-        permanent: false,
-      },
-    }
-  }
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: "/auth",
+  //       permanent: false,
+  //     },
+  //   }
+  // }
   const upcomingMovies = await fetchUpcomingMovies()
   const popularMovies = await fetchPopularMovies()
   const nowPlayingMovies = await fetchNowPlayingMovies()
