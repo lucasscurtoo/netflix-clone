@@ -24,3 +24,5 @@ Once that the .env file its configurated, start the server with:
 npm run dev
 
 Enjoy
+
+![](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){width='100px'}
