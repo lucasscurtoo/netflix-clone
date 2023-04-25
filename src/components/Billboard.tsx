@@ -6,23 +6,11 @@ import useInfoModal from "../../hooks/useInfoModal"
 import useGetMovieVideo from "../../hooks/useGetMovieVideo"
 import dynamic from "next/dynamic"
 import { useIsMobile } from "../../hooks/useIsMobile"
+import { filterTrailerVideo } from "@/helpers/functions"
 
 const ReactPlayer = dynamic(() => import("react-player/lazy"), {
   ssr: false,
 })
-
-interface Video {
-  id: string
-  iso_3166_1: string
-  iso_639_1: string
-  key: string
-  name: string
-  official: boolean
-  published_at: string
-  site: string
-  size: number
-  type: string
-}
 
 const Billboard = () => {
   const { data } = useBillboard()
@@ -34,9 +22,7 @@ const Billboard = () => {
     openModal(data?.id)
   }, [openModal, data?.id])
 
-  const trailerVideo = videoData?.results.find(
-    (video: Video) => video.type === "Trailer"
-  )
+  const trailerVideo = filterTrailerVideo(videoData)
 
   return (
     <div className="relative lg:h-[56.25vw] h-[100vw] w-full">
@@ -60,7 +46,7 @@ const Billboard = () => {
         }}
       />
 
-      <div className="absolute top-[40%] ml-4 md:ml-16">
+      <div className="absolute top-[30%] sm:top-[40%] ml-4 md:ml-16">
         <p
           className="text-white text-xl 
             md:text-5xl h-full w-[50%]
@@ -70,8 +56,8 @@ const Billboard = () => {
           {data?.title}
         </p>
         <p
-          className="text-white text-[8px]
-          md:text-lg mt-3 md:mt-8 w-5/6 md:w-4/5 
+          className="text-white text-sm
+          sm:text-lg mt-3 md:mt-8 w-5/6 md:w-4/5 
           lg:w-1/2 drop-shadow-xl"
         >
           {data?.overview}
