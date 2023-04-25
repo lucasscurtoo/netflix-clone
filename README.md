@@ -28,3 +28,5 @@ npm run dev
 Enjoy
 
 ![](https://i.ibb.co/rFzR2Jb/cap.png)
+
+![](https://i.ibb.co/4s1hSYV/cap2.png)
