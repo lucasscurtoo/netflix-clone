@@ -27,4 +27,4 @@ npm run dev
 
 Enjoy
 
-![]([https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png](https://i.ibb.co/rFzR2Jb/cap.png)){width='100px'}
+![](https://i.ibb.co/rFzR2Jb/cap.png)
