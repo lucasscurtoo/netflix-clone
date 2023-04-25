@@ -51,12 +51,8 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
               className="w-full brightness-[60%] object-cover h-full"
               src={`https://image.tmdb.org/t/p/original${data?.backdrop_path}`}
               fill
-              placeholder="blur"
-              blurDataURL={`https://image.tmdb.org/t/p/original${data?.backdrop_path}`}
-              alt="Movie backdrop"
-              sizes="(max-width: 768px) 100vw,
-        (max-width: 1200px) 50vw,
-        33vw"
+              priority
+              alt="Movie backdrop info"
             />
             <div
               onClick={handleClose}

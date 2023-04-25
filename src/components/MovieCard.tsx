@@ -10,7 +10,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
 
   return (
     <div
-      className="group bg-zinc-900 col-span relative h-[60vw] min-w-[40%] lg:h-[20vw] lg:min-w-[15%]"
+      className="group bg-zinc-900 col-span relative h-[60vw] min-w-[40%] lg:h-[20vw] w-[80%]"
       onClick={() => openModal(data?.id)}
     >
       <Image
