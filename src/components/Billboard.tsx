@@ -49,6 +49,7 @@ const Billboard = () => {
         controls={false}
         className="absolute bottom-16"
         loop={true}
+        playsinline={true}
         config={{
           youtube: {
             playerVars: {
