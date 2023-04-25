@@ -1,3 +1,5 @@
+Deploy: https://netflix-clone-bice-gamma.vercel.app/
+
 This is a Netflix-clone project to learn ssr, prisma and typescript
 
 ## Instalation
@@ -25,4 +27,4 @@ npm run dev
 
 Enjoy
 
-![](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){width='100px'}
+![]([https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png](https://i.ibb.co/rFzR2Jb/cap.png)
