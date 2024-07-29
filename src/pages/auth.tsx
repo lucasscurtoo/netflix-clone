@@ -1,30 +1,30 @@
-import Input from "@/components/Input"
-import Image from "next/image"
-import { useCallback, useState } from "react"
-import axios from "axios"
-import { signIn } from "next-auth/react"
-import { FcGoogle } from "react-icons/fc"
-import { FaGithub } from "react-icons/fa"
+import Input from '@/components/Input'
+import Image from 'next/image'
+import { useCallback, useState } from 'react'
+import axios from 'axios'
+import { signIn } from 'next-auth/react'
+import { FcGoogle } from 'react-icons/fc'
+import { FaGithub } from 'react-icons/fa'
 
 const Auth = () => {
-  const [email, setEmail] = useState("")
-  const [name, setName] = useState("")
-  const [password, setPassword] = useState("")
-  const [variant, setVariant] = useState("login")
+  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
+  const [password, setPassword] = useState('')
+  const [variant, setVariant] = useState('login')
 
   const toggleVariant = useCallback(() => {
     setVariant((currentVariant) =>
-      currentVariant === "login" ? "register" : "login"
+      currentVariant === 'login' ? 'register' : 'login'
     )
   }, [])
 
   const login = useCallback(async () => {
     try {
-      await signIn("credentials", {
+      await signIn('credentials', {
         email,
         password,
-        redirect: false,
-        callbackUrl: "/profiles",
+        redirect: true,
+        callbackUrl: '/profiles',
       })
     } catch (error) {
       console.log(error)
@@ -33,7 +33,7 @@ const Auth = () => {
 
   const register = useCallback(async () => {
     try {
-      await axios.post("/api/register", {
+      await axios.post('/api/register', {
         email,
         name,
         password,
@@ -50,83 +50,71 @@ const Auth = () => {
     bg-no-repeat bg-center bg-fixed bg-cover
     "
     >
-      <div className="bg-black w-full h-full lg:bg-opacity-50">
-        <nav className="px-12 py-5">
-          <Image src="/images/logo.png" alt="logo" width={200} height={200} />
+      <div className='w-full h-full bg-black lg:bg-opacity-50'>
+        <nav className='px-12 py-5'>
+          <Image src='/images/logo.png' alt='logo' width={200} height={200} />
         </nav>
-        <div className="flex justify-center">
+        <div className='flex justify-center'>
           <div
-            className="bg-black bg-opacity-70 px-16 py-16 self-center
-             mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full"
+            className='self-center w-full px-16 py-16 mt-2 bg-black rounded-md bg-opacity-70 lg:w-2/5 lg:max-w-md'
           >
-            <h2 className="text-white text-4xl mb-8 font-semibold">
-              {variant === "login" ? "Sign in" : "Register"}
+            <h2 className='mb-8 text-4xl font-semibold text-white'>
+              {variant === 'login' ? 'Sign in' : 'Register'}
             </h2>
-            <div className="flex flex-col gap-4">
-              {variant === "register" && (
+            <div className='flex flex-col gap-4'>
+              {variant === 'register' && (
                 <Input
-                  label="Username"
+                  label='Username'
                   onChange={(ev: any) => setName(ev.target.value)}
-                  id="username"
+                  id='username'
                   value={name}
                 />
               )}
               <Input
-                label="Email"
+                label='Email'
                 onChange={(ev: any) => setEmail(ev.target.value)}
-                id="email"
-                type="email"
+                id='email'
+                type='email'
                 value={email}
               />
               <Input
-                label="Password"
+                label='Password'
                 onChange={(ev: any) => setPassword(ev.target.value)}
-                id="password"
-                type="password"
+                id='password'
+                type='password'
                 value={password}
               />
             </div>
             <button
-              type="submit"
-              onClick={variant === "login" ? login : register}
-              className="bg-red-600 py-3 
-            text-white rounded-md w-full mt-10 
-            hover:bg-red-700 transition"
+              type='submit'
+              onClick={variant === 'login' ? login : register}
+              className='w-full py-3 mt-10 text-white transition bg-red-600 rounded-md hover:bg-red-700'
             >
-              {variant === "login" ? "Login" : "Sign up"}
+              {variant === 'login' ? 'Login' : 'Sign up'}
             </button>
-            <div className="flex flex-row items-center gap-4 mt-8 justify-center">
+            <div className='flex flex-row items-center justify-center gap-4 mt-8'>
               <div
-                onClick={() => signIn("google", { callbackUrl: "/profiles" })}
-                className="w-10
-                h-10 bg-white rounded-full
-                flex items-center justify-center
-                cursor-pointer hover:opacity-80
-                transition"
+                onClick={() => signIn('google', { callbackUrl: '/profiles' })}
+                className='flex items-center justify-center w-10 h-10 transition bg-white rounded-full cursor-pointer hover:opacity-80'
               >
                 <FcGoogle size={30} />
               </div>
               <div
-                onClick={() => signIn("github", { callbackUrl: "/profiles" })}
-                className="w-10
-                h-10 bg-white rounded-full
-                flex items-center justify-center
-                cursor-pointer hover:opacity-80
-                transition"
+                onClick={() => signIn('github', { callbackUrl: '/profiles' })}
+                className='flex items-center justify-center w-10 h-10 transition bg-white rounded-full cursor-pointer hover:opacity-80'
               >
                 <FaGithub size={30} />
               </div>
             </div>
-            <p className="text-neutral-500 mt-12">
-              {variant === "login"
-                ? "First time using Netflix?"
-                : "Already have an account?"}
+            <p className='mt-12 text-neutral-500'>
+              {variant === 'login'
+                ? 'First time using Netflix?'
+                : 'Already have an account?'}
               <span
                 onClick={toggleVariant}
-                className="text-white ml-1 hover:underline 
-                cursor-pointer"
+                className='ml-1 text-white cursor-pointer hover:underline'
               >
-                {variant === "login" ? " Create an account" : "Login"}
+                {variant === 'login' ? ' Create an account' : 'Login'}
               </span>
             </p>
           </div>
@@ -136,3 +124,4 @@ const Auth = () => {
   )
 }
 export default Auth
+
